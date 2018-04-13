@@ -1,0 +1,16 @@
+pouzivatel sa prihlasy, stiahne si databazu, upravy a aktualizuje server
+aktualizovat moze len, ked je prihlaseny na 1 zariadeni
+bude to na styl GITu
+
+user bude non-stop prihlaseny, bude musiet sa iba osobne odhlasit
+server bude mat databazu uzivatelov so vsetkymi informaciami + pocet pripojenych zariadeni
+	ku kazdemu bude mat aj odkaz na jeho file, ktora sa bude posielat medzi userom a serverom
+
+
+
+data budu: data usera + sablony
+sablony budu spravovane len autorom, budu na princip dat
+
+OVERKILL server mi umozni pozriet iba povolenu cast niekoho databazy
+
+
