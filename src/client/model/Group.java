@@ -1,9 +1,9 @@
 package client.model;
 
-import client.controller.ListGroupController;
-
 import java.util.List;
 
 public class Group {
-    List<Event> events;
+    private int user_id;
+    private String name;
+    private List<Event> events;
 }

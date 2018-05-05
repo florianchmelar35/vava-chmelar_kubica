@@ -18,7 +18,7 @@ public class Main extends Application{
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource("view/login.fxml"));
         Parent root = loader.load();
-        primaryStage.setScene(new Scene(root, 600, 400));
+        primaryStage.setScene(new Scene(root, 505, 255));
         primaryStage.show();
 
         //controller ma v sebe ulozenu tuto instanciu MainApp classy, aby s nou mohol pracovat
