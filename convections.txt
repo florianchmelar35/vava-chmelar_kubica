@@ -1,0 +1,14 @@
+nazov fxml suboru: login.fxml
+classy velkym:		VelkaClass.java
+Implementation comments
+ 	//
+ 	/* … */
+Documentation comments
+	/** … */
+
+package malym		dajakypackage
+metody				dajakaMetoda()
+variable			countAll
+const 				ALLUPPERCASE
+
+controller clasa	AkjfangController
