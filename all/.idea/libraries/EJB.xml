@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="EJB" type="EJB">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/wildfly-12.0.0.Final/jboss-modules.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
