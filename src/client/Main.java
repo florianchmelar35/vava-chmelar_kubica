@@ -1,5 +1,6 @@
 package client;
 
+import client.controller.LoginController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,11 +23,19 @@ public class Main extends Application{
         primaryStage.show();
 
         //controller ma v sebe ulozenu tuto instanciu MainApp classy, aby s nou mohol pracovat
-        //PrimaryController primaryController = loader.getController();
-        //primaryController.setMainApp(this);
+        LoginController loginController = loader.getController();
+        loginController.setMain(this);
     }
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
+    public void setPrimaryStage(Stage primaryStage) {
+        this.primaryStage = primaryStage;
     }
 }

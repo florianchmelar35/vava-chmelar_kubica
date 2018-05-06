@@ -1,5 +1,9 @@
 package client.controller;
 
+import client.Main;
+import client.controller.window.WindMain;
+import client.controller.window.WindSignUp;
+import client.model.Event;
 import client.model.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -7,15 +11,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-import javax.jws.soap.SOAPBinding;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class LoginController {
-    int lang = 0;
     String langS = "EN";
     ResourceBundle multiLang = ResourceBundle.getBundle("multiLang");
-
+    private Main main;
 
     @FXML
     private Label L_setData;
@@ -36,14 +38,10 @@ public class LoginController {
     @FXML
     private Button B_signUp;
 
-    void hej(){
-        L_setData.setText("HEj");
-    }
-
     @FXML
     void mainWindow(){
         try {
-            new WindMain(multiLang);
+            new WindMain(multiLang, this.main);
         }
         catch (Exception e){
             e.printStackTrace();
@@ -62,13 +60,13 @@ public class LoginController {
             return;
         }
 
-        User user = new User(T_user.getText(), T_pass.getText());
+        //User user = new User(T_user.getText(), T_pass.getText());
     }
 
     @FXML
     void signUp(){
         try {
-            new WindSignUp(multiLang);
+            new WindSignUp(multiLang, this.main);
         }
         catch (Exception e){
             e.printStackTrace();
@@ -76,21 +74,22 @@ public class LoginController {
     }
 
     @FXML
-    void lang(){
-        System.out.println("Zmena");
+    void signIn() {
+        try {
+            new WindMain(multiLang, this.main);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
+    @FXML
+    void lang(){
         if(combo.getValue() == null)
             langS = "EN";
         else
             langS = (String) combo.getValue();
-        if (langS.equals("EN")){
-            System.out.println("EN");
-            lang = 0;
-        }
-        else
-            lang = 1;
 
-        if(lang == 0)
+        if(langS == "EN")
             Locale.setDefault(new Locale("en", "US"));
         else
             Locale.setDefault(new Locale("sk", "SK"));
@@ -105,4 +104,11 @@ public class LoginController {
 
     }
 
+    public Main getMain() {
+        return main;
+    }
+
+    public void setMain(Main main) {
+        this.main = main;
+    }
 }

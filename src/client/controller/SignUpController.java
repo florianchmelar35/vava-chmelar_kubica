@@ -1,11 +1,14 @@
 package client.controller;
 
+import client.Main;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 
-import java.awt.*;
 
 public class SignUpController {
+
+    private Main main;
 
     @FXML
     private TextField login;
@@ -17,5 +20,13 @@ public class SignUpController {
     @FXML
     void run(){
 
+    }
+
+    public Main getMain() {
+        return main;
+    }
+
+    public void setMain(Main main) {
+        this.main = main;
     }
 }
