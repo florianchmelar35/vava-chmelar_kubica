@@ -1,4 +1,5 @@
-package service;
+package server.service;
+
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
