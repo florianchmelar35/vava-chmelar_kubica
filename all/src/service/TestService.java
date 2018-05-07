@@ -2,6 +2,7 @@ package service;
 
 
 import javax.ejb.LocalBean;
+import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -14,10 +15,11 @@ import javax.ws.rs.QueryParam;
 @Stateless
 @LocalBean
 @Path("/sayHello")
+@Remote
 public class TestService {
 
     /**
-     * Default constructor. 
+     * Default constructor.
      */
     public TestService() {
     }
@@ -31,5 +33,5 @@ public class TestService {
     public String sayHello(@QueryParam("param1") String who) {
     	return "hello " + who;
     }
-    
+
 }

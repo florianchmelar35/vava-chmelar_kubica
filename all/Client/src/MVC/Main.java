@@ -5,13 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import service.LoginBeanRemote;
-
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import java.util.Hashtable;
-import java.util.Properties;
 
 public class Main extends Application {
 
@@ -37,16 +30,31 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
+
+//        Dog dog = new Dog(1, "Sandy");
 //
+//        User user = new User(1, "gaga", "0000");
 //
-////        try{
-////            invokeLogin();
-////
-////        }
-////        catch (Exception e){
-////            e.printStackTrace();
-////        }
+//        Gson gson = new Gson();
+//        String temp = gson.toJson(dog);
 //
+//        System.out.println(dog);
+//
+//        Gson gson2 = new Gson();
+//        Dog user2 = gson.fromJson(temp, Dog.class);
+//
+//        System.out.println(user2.getName());
+//
+//        try{
+//            invokeLogin(temp);
+//
+//        }
+//        catch (Exception e){
+//            e.printStackTrace();
+//        }
+
+
+
     }
 
     public Stage getPrimaryStage() {
@@ -57,21 +65,4 @@ public class Main extends Application {
         this.primaryStage = primaryStage;
     }
 
-    static void invokeLogin() throws Exception{
-        final LoginBeanRemote statelessLoginBean = lookupRemoteLoginBean();
-
-        boolean bool = statelessLoginBean.checkUser();
-        if(bool)
-            System.out.println("HEJEEEE");
-
-    }
-
-    private static LoginBeanRemote lookupRemoteLoginBean() throws NamingException {
-        final Hashtable jndiProperties = new Hashtable();
-        Properties prop= new Properties();
-        prop.put(Context.INITIAL_CONTEXT_FACTORY, "org.wildfly.naming.client.WildFlyInitialContextFactory");
-        prop.put(Context.PROVIDER_URL, "http-remoting://localhost:8080");
-        final Context context = new InitialContext(prop);
-        return (LoginBeanRemote) context.lookup("ejb:/project_OrganizeIT_ear_exploded/ejb//TestService!service.TestService");
-    }
 }

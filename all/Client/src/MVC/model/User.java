@@ -6,9 +6,9 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class User {
-    private final IntegerProperty id;
-    private final StringProperty login;
-    private final StringProperty password;
+    private IntegerProperty id;
+    private StringProperty login;
+    private StringProperty password;
 
     public User(int id, String login, String password) {
         this.id = new SimpleIntegerProperty(id);
