@@ -1,0 +1,4 @@
+URL; User; Password:
+jdbc:postgresql://localhost:5432/VAVA
+postgres
+postgres
