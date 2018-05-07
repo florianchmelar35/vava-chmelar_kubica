@@ -5,12 +5,12 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class User {
+public class UserProperty {
     private IntegerProperty id;
     private StringProperty login;
     private StringProperty password;
 
-    public User(int id, String login, String password) {
+    public UserProperty(int id, String login, String password) {
         this.id = new SimpleIntegerProperty(id);
         this.login = new SimpleStringProperty(login);
         this.password = new SimpleStringProperty(password);

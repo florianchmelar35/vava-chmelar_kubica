@@ -55,7 +55,7 @@
                   <Insets left="10.0" right="10.0" />
                </GridPane.margin>
             </PasswordField>
-            <Button fx:id="B_signIn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#signIn" onMouseEntered="#lang" onMousePressed="#login" prefHeight="50.0" prefWidth="230.0" text="Sign in" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+            <Button fx:id="B_signIn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#signIn" onMouseEntered="#lang" prefHeight="50.0" prefWidth="230.0" text="Sign in" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>

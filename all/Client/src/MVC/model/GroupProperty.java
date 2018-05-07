@@ -3,17 +3,17 @@ package MVC.model;
 import javafx.beans.property.*;
 import javafx.collections.ObservableList;
 
-public class Group {
+public class GroupProperty {
     private final IntegerProperty id;
     private final StringProperty name;
     private final IntegerProperty idUser;
-    private final ListProperty<Event> events;
+    private final ListProperty<EventProperty> events;
 
-    public Group(int id, String name, int idUser, ObservableList<Event> events) {
+    public GroupProperty(int id, String name, int idUser, ObservableList<EventProperty> events) {
         this.id = new SimpleIntegerProperty(id);
         this.name = new SimpleStringProperty(name);
         this.idUser = new SimpleIntegerProperty(idUser);
-        this.events = new SimpleListProperty<Event>(events);
+        this.events = new SimpleListProperty<EventProperty>(events);
     }
 
     public int getId() {
@@ -52,15 +52,15 @@ public class Group {
         this.idUser.set(idUser);
     }
 
-    public ObservableList<Event> getEvents() {
+    public ObservableList<EventProperty> getEvents() {
         return events.get();
     }
 
-    public ListProperty<Event> eventsProperty() {
+    public ListProperty<EventProperty> eventsProperty() {
         return events;
     }
 
-    public void setEvents(ObservableList<Event> events) {
+    public void setEvents(ObservableList<EventProperty> events) {
         this.events.set(events);
     }
 }

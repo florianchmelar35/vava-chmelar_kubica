@@ -8,50 +8,31 @@ import service.LoginBeanRemote;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 
 public class BeanController {
 
-
-    public static void main(String[] args) {
-
-        User user = new User(1, "gaga", "0000");
-        User user2 = new User(2, "koko", "4444");
-
-        Event ev = new Event("TOTO", "Hej", new Date(2018, 4, 3), "FIIT");
-        Event ev2 = new Event("KOKO", "NIE", new Date(2018, 4, 3), "FRI");
-
-        List<Event> list = new ArrayList<>();
-        list.add(ev);
-        list.add(ev2);
-
-        Group group = new Group("FIIT", 1, list);
-
-
-        try{
-            invokeLogin(group);
-
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    static void invokeLogin(Group group) throws Exception{
+    public static int checkUser(User user) throws Exception{
         final LoginBeanRemote statelessLoginBean = lookupRemoteLoginBean();
 
-        Group income = statelessLoginBean.checkUser(group);
+        return statelessLoginBean.checkUser(user);
+    }
 
-        System.out.println(income.getIdUser() + " " + income.getName());
+    public static List<Group> getData(int idUser) throws Exception{
+        final LoginBeanRemote statelessLoginBean = lookupRemoteLoginBean();
 
+        return(statelessLoginBean.getData(idUser));
+    }
 
+    public static boolean signUpUser(User user) throws Exception{
+        final LoginBeanRemote statelessLoginBean = lookupRemoteLoginBean();
+
+        return(statelessLoginBean.signUpUser(user));
     }
 
     private static LoginBeanRemote lookupRemoteLoginBean() throws NamingException {
 
         final Context context = new InitialContext();
-        return (LoginBeanRemote) context.lookup("ejb:/project_OrganizeIT_ejb_exploded//LoginBean!service.LoginBeanRemote");
+        return (LoginBeanRemote) context.lookup("ejb:/project_OrganizeIT_war_exploded//LoginBean!service.LoginBeanRemote");
     }
 }

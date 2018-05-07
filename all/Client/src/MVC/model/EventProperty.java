@@ -2,20 +2,22 @@ package MVC.model;
 
 import javafx.beans.property.*;
 
-import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
-public class Event {
-    private final IntegerProperty id;
+public class EventProperty {
+    private IntegerProperty id;
     private final StringProperty name;
     private final StringProperty comment;
-    private final ObjectProperty<Timestamp> date;
+    private final ObjectProperty<LocalDate> date;
+    private final ObjectProperty<LocalTime> time;
     private final StringProperty place;
 
-    public Event(int id, String name, String comment, Timestamp date, String place) {
-        this.id = new SimpleIntegerProperty(id);
+    public EventProperty(String name, String comment, LocalDate date, LocalTime time, String place) {
         this.name = new SimpleStringProperty(name);
         this.comment = new SimpleStringProperty(comment);
-        this.date = new SimpleObjectProperty<Timestamp>(date);
+        this.date = new SimpleObjectProperty<LocalDate>(date);
+        this.time = new SimpleObjectProperty<LocalTime>(time);
         this.place = new SimpleStringProperty(place);
     }
 
@@ -55,16 +57,28 @@ public class Event {
         this.comment.set(comment);
     }
 
-    public Timestamp getDate() {
+    public LocalDate getDate() {
         return date.get();
     }
 
-    public ObjectProperty<Timestamp> dateProperty() {
+    public ObjectProperty<LocalDate> dateProperty() {
         return date;
     }
 
-    public void setDate(Timestamp date) {
+    public void setDate(LocalDate date) {
         this.date.set(date);
+    }
+
+    public LocalTime getTime() {
+        return time.get();
+    }
+
+    public ObjectProperty<LocalTime> timeProperty() {
+        return time;
+    }
+
+    public void setTime(LocalTime time) {
+        this.time.set(time);
     }
 
     public String getPlace() {

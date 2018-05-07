@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.scene.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
@@ -22,12 +23,17 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <Button fx:id="B_make" layoutX="21.0" layoutY="111.0" mnemonicParsing="false" onAction="#makeGroup" prefHeight="50.0" prefWidth="155.0" text="%create" />
+                  <Button fx:id="B_make" layoutX="21.0" layoutY="199.0" mnemonicParsing="false" onAction="#makeGroup" prefHeight="50.0" prefWidth="155.0" text="%create" />
                   <Button fx:id="B_refresh" layoutX="21.0" layoutY="461.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="155.0" text="%refresh" />
-                  <Button fx:id="B_list" layoutX="21.0" layoutY="175.0" mnemonicParsing="false" onAction="#listGroup" prefHeight="50.0" prefWidth="155.0" text="%list" />
-                  <Label fx:id="L_groupSetting" layoutX="42.0" layoutY="14.0" text="%groupsSettings" />
-                  <Button fx:id="B_add" layoutX="21.0" layoutY="51.0" mnemonicParsing="false" onAction="#addGroup" prefHeight="50.0" prefWidth="155.0" text="%add" />
+                  <Button fx:id="B_list" layoutX="21.0" layoutY="249.0" mnemonicParsing="false" onAction="#listGroup" prefHeight="50.0" prefWidth="155.0" text="%list" />
+                  <Label fx:id="L_groupSetting" layoutX="42.0" layoutY="105.0" text="%groupsSettings" />
+                  <Button fx:id="B_add" layoutX="21.0" layoutY="149.0" mnemonicParsing="false" onAction="#addGroup" prefHeight="50.0" prefWidth="155.0" text="%add" />
                   <Button fx:id="B_logOut" layoutX="21.0" layoutY="528.0" mnemonicParsing="false" onAction="#logout" prefHeight="50.0" prefWidth="155.0" text="%logOut" />
+                  <Label fx:id="L_name" layoutX="73.0" layoutY="14.0" text="Label">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">

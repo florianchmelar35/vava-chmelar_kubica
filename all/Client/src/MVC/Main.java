@@ -1,14 +1,26 @@
 package MVC;
 
+import MVC.model.EventProperty;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import model.Group;
+import model.User;
+
+import java.util.List;
 
 public class Main extends Application {
 
     private Stage primaryStage;
+    private List<Group> groupList;
+    private User user;
+
+    private ObservableList<EventProperty> events = FXCollections.observableArrayList();
+
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -30,31 +42,6 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
-
-//        Dog dog = new Dog(1, "Sandy");
-//
-//        User user = new User(1, "gaga", "0000");
-//
-//        Gson gson = new Gson();
-//        String temp = gson.toJson(dog);
-//
-//        System.out.println(dog);
-//
-//        Gson gson2 = new Gson();
-//        Dog user2 = gson.fromJson(temp, Dog.class);
-//
-//        System.out.println(user2.getName());
-//
-//        try{
-//            invokeLogin(temp);
-//
-//        }
-//        catch (Exception e){
-//            e.printStackTrace();
-//        }
-
-
-
     }
 
     public Stage getPrimaryStage() {
@@ -65,4 +52,27 @@ public class Main extends Application {
         this.primaryStage = primaryStage;
     }
 
+    public List<Group> getGroupList() {
+        return groupList;
+    }
+
+    public void setGroupList(List<Group> groupList) {
+        this.groupList = groupList;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public ObservableList<EventProperty> getEvents() {
+        return events;
+    }
+
+    public void setEvents(ObservableList<EventProperty> events) {
+        this.events = events;
+    }
 }
