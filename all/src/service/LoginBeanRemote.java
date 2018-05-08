@@ -15,4 +15,7 @@ public interface LoginBeanRemote {
     List<Group> refresh(User user, List<Group> list, List<Integer> deleted, List<Integer> created);
     boolean logout(User user, List<Group> list, List<Integer> deleted, List<Integer> created);
 
+    Group addGroup(int idUser, int idGroup);
+    boolean leaveGroup(int idUser, int idGroup);
+
 }
