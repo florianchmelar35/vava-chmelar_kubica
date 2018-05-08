@@ -26,6 +26,8 @@ public class SignUpController {
     @FXML
     private Button B_signUp;
 
+    //registrovanie noveho uzivatela, prebieha komunikacia so serverom
+    //pokial sa vrati odpoved false, registrovanie bolo neuspesne,
     @FXML
     private void signUp() {
         //kontrola spravnosti vyplnenych policok
@@ -74,7 +76,6 @@ public class SignUpController {
             alert.showAndWait();
             main.getSecondaryStage().close();
             return;
-
         }
 
     }

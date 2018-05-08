@@ -1,6 +1,7 @@
 package MVC;
 
 import MVC.model.EventProperty;
+import MVC.model.GroupProperty;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,16 +12,22 @@ import javafx.stage.Stage;
 import model.Group;
 import model.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Main extends Application {
 
     private Stage primaryStage;
     private Stage secondaryStage;
-    private List<Group> groupList;
+
     private User user;
+    private List<Group> groupList;
+    private List<Integer> created = new ArrayList<Integer>();
+    private List<Integer> deleted = new ArrayList<Integer>();
 
     private ObservableList<EventProperty> events = FXCollections.observableArrayList();
+    private ObservableList<GroupProperty> groups = FXCollections.observableArrayList();
+    private ObservableList<GroupProperty> groupsMy = FXCollections.observableArrayList();
 
 
     @Override
@@ -82,5 +89,37 @@ public class Main extends Application {
 
     public void setEvents(ObservableList<EventProperty> events) {
         this.events = events;
+    }
+
+    public List<Integer> getCreated() {
+        return created;
+    }
+
+    public void setCreated(List<Integer> created) {
+        this.created = created;
+    }
+
+    public List<Integer> getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(List<Integer> deleted) {
+        this.deleted = deleted;
+    }
+
+    public ObservableList<GroupProperty> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(ObservableList<GroupProperty> groups) {
+        this.groups = groups;
+    }
+
+    public ObservableList<GroupProperty> getGroupsMy() {
+        return groupsMy;
+    }
+
+    public void setGroupsMy(ObservableList<GroupProperty> groupsMy) {
+        this.groupsMy = groupsMy;
     }
 }

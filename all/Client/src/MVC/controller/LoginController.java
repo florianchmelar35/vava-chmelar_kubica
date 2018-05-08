@@ -40,6 +40,7 @@ public class LoginController {
     @FXML
     private Button B_signUp;
 
+    //otvorenie okna signUp
     @FXML
     private void signUp(){
 
@@ -79,7 +80,7 @@ public class LoginController {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle(multiLang.getString("information"));
             alert.setHeaderText(null);
-            alert.setContentText(multiLang.getString("sameName"));
+            alert.setContentText(multiLang.getString("badInformation"));
             alert.showAndWait();
             return;
         }
@@ -105,6 +106,7 @@ public class LoginController {
         }
     }
 
+    //nastavovanie jazyka, ktory je nasledne pouzivany v celom programe
     @FXML
     private void lang(){
         if(combo.getValue() == null)

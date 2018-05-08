@@ -26,5 +26,6 @@ public class WindAddEvent extends Stage {
         //controller potrebuje mat pristup k main classe
         AddEventController addEventController = loader.getController();
         addEventController.setMain(main);
+        addEventController.initialization();
     }
 }

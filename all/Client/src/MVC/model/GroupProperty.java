@@ -7,13 +7,11 @@ public class GroupProperty {
     private final IntegerProperty id;
     private final StringProperty name;
     private final IntegerProperty idUser;
-    private final ListProperty<EventProperty> events;
 
-    public GroupProperty(int id, String name, int idUser, ObservableList<EventProperty> events) {
+    public GroupProperty(int id, String name, int idUser) {
         this.id = new SimpleIntegerProperty(id);
         this.name = new SimpleStringProperty(name);
         this.idUser = new SimpleIntegerProperty(idUser);
-        this.events = new SimpleListProperty<EventProperty>(events);
     }
 
     public int getId() {
@@ -52,15 +50,8 @@ public class GroupProperty {
         this.idUser.set(idUser);
     }
 
-    public ObservableList<EventProperty> getEvents() {
-        return events.get();
-    }
-
-    public ListProperty<EventProperty> eventsProperty() {
-        return events;
-    }
-
-    public void setEvents(ObservableList<EventProperty> events) {
-        this.events.set(events);
+    @Override
+    public String toString() {
+        return name.toString();
     }
 }
