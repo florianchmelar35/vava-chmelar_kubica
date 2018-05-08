@@ -8,15 +8,14 @@ import MVC.controller.window.WindAddGroup;
 import MVC.controller.window.WindLogin;
 import MVC.model.EventProperty;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import model.Event;
 import model.Group;
 
+import javax.ejb.Local;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ResourceBundle;
 
 public class MainController {
@@ -46,27 +45,47 @@ public class MainController {
     @FXML
     private Button B_deleteEvent;
     @FXML
-    //TODO
     private TableView<EventProperty> T_events;
+    @FXML
+    private TableColumn<EventProperty, String> TC_name;
+    @FXML
+    private TableColumn<EventProperty, String> TC_place;
+    @FXML
+    private TableColumn<EventProperty, LocalDate> TC_date;
+    @FXML
+    private TableColumn<EventProperty, LocalTime> TC_time;
+    @FXML
+    private TableColumn<EventProperty, String> TC_comment;
 
-    private void initialization() {
+
+    public void initialization() {
         //meno pouzivatela
         L_name.setText(main.getUser().getLogin());
 
         //naplnam list eventov, ktory sa bude zobrazovat v tabulke
         for(Group g : main.getGroupList()) {
             for(Event e : g.getEvents()) {
-               // LocalDate localDate = new LocalDate(e.getDate().getYear(), e.getDate().getDay(), e.getDate().getMonth());
-               // String date =
-                //EventProperty ep = new EventProperty(e.getName(), e.getComment(), e.getDate(), e.getPlace());
-               // main.getEvents().add(ep);
+               int year = e.getDate().getYear();
+               int month = e.getDate().getMonth();
+               int day = e.getDate().getDay();
+               LocalDate date = LocalDate.of(year,month,day);
+
+               int hours = e.getDate().getHours();
+               int minutes = e.getDate().getHours();
+               LocalTime time = LocalTime.of(hours,minutes);
+
+               EventProperty ep = new EventProperty(e.getName(), e.getComment(), date, time, e.getPlace());
+               main.getEvents().add(ep);
             }
         }
 
-        Timestamp t = new Timestamp(5000000);
-        t.getTime();
+        TC_name.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+        TC_place.setCellValueFactory(cellData -> cellData.getValue().placeProperty());
+        TC_date.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
+        TC_time.setCellValueFactory(cellData -> cellData.getValue().timeProperty());
+        TC_comment.setCellValueFactory(cellData -> cellData.getValue().commentProperty());
 
-
+        T_events.setItems(main.getEvents());
     }
 
     @FXML

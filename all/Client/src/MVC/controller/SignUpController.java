@@ -72,7 +72,9 @@ public class SignUpController {
             alert.setHeaderText(null);
             alert.setContentText(multiLang.getString("registration"));
             alert.showAndWait();
+            main.getSecondaryStage().close();
             return;
+
         }
 
     }

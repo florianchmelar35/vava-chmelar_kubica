@@ -20,8 +20,7 @@ public class WindSignUp {
         primaryStage.show();
 
         //prepnutie okien
-        //main.getPrimaryStage().close();
-        //main.setPrimaryStage(primaryStage);
+        main.setSecondaryStage(primaryStage);
 
         //controller potrebuje mat pristup k main classe
         SignUpController signUpController = loader.getController();

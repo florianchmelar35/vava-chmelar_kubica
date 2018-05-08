@@ -17,19 +17,19 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MVC.controller.MainController">
+<AnchorPane prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MVC.controller.MainController">
    <children>
       <SplitPane dividerPositions="0.2" prefHeight="600.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <Button fx:id="B_make" layoutX="21.0" layoutY="199.0" mnemonicParsing="false" onAction="#makeGroup" prefHeight="50.0" prefWidth="155.0" text="%create" />
-                  <Button fx:id="B_refresh" layoutX="21.0" layoutY="461.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="155.0" text="%refresh" />
-                  <Button fx:id="B_list" layoutX="21.0" layoutY="249.0" mnemonicParsing="false" onAction="#listGroup" prefHeight="50.0" prefWidth="155.0" text="%list" />
-                  <Label fx:id="L_groupSetting" layoutX="42.0" layoutY="105.0" text="%groupsSettings" />
-                  <Button fx:id="B_add" layoutX="21.0" layoutY="149.0" mnemonicParsing="false" onAction="#addGroup" prefHeight="50.0" prefWidth="155.0" text="%add" />
-                  <Button fx:id="B_logOut" layoutX="21.0" layoutY="528.0" mnemonicParsing="false" onAction="#logout" prefHeight="50.0" prefWidth="155.0" text="%logOut" />
-                  <Label fx:id="L_name" layoutX="73.0" layoutY="14.0" text="Label">
+                  <Button fx:id="B_make" layoutX="46.0" layoutY="199.0" mnemonicParsing="false" onAction="#makeGroup" prefHeight="50.0" prefWidth="155.0" text="%create" />
+                  <Button fx:id="B_refresh" layoutX="41.0" layoutY="461.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="155.0" text="%refresh" />
+                  <Button fx:id="B_list" layoutX="46.0" layoutY="249.0" mnemonicParsing="false" onAction="#listGroup" prefHeight="50.0" prefWidth="155.0" text="%list" />
+                  <Label fx:id="L_groupSetting" layoutX="67.0" layoutY="105.0" text="%groupsSettings" />
+                  <Button fx:id="B_add" layoutX="46.0" layoutY="149.0" mnemonicParsing="false" onAction="#addGroup" prefHeight="50.0" prefWidth="155.0" text="%add" />
+                  <Button fx:id="B_logOut" layoutX="41.0" layoutY="534.0" mnemonicParsing="false" onAction="#logout" prefHeight="50.0" prefWidth="155.0" text="%logOut" />
+                  <Label fx:id="L_name" layoutX="99.0" layoutY="14.0" text="Label">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
@@ -44,8 +44,11 @@
                            <children>
                               <TableView fx:id="T_events" prefHeight="294.0" prefWidth="695.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <columns>
-                                  <TableColumn prefWidth="75.0" text="C1" />
-                                  <TableColumn prefWidth="75.0" text="C2" />
+                                  <TableColumn fx:id="TC_name" prefWidth="172.0" text="%name" />
+                                  <TableColumn fx:id="TC_place" prefWidth="157.0" text="%place" />
+                                    <TableColumn fx:id="TC_date" prefWidth="165.0" text="%date" />
+                                    <TableColumn fx:id="TC_time" minWidth="0.0" prefWidth="169.0" text="%time" />
+                                    <TableColumn fx:id="TC_comment" prefWidth="288.0" text="%comment" />
                                 </columns>
                               </TableView>
                            </children>
@@ -55,7 +58,7 @@
                               <ToolBar layoutX="10.0" layoutY="20.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="85.0" prefWidth="792.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <items>
                                     <ChoiceBox fx:id="Ch_events" prefHeight="30.0" prefWidth="250.0" />
-                                    <Button fx:id="B_filter" alignment="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="155.0" text="filter" />
+                                    <Button fx:id="B_filter" alignment="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="155.0" text="%filter" />
                                     <Button fx:id="B_deleteEvent" mnemonicParsing="false" prefHeight="50.0" prefWidth="155.0" text="%deleteEvent" />
                                     <Button fx:id="B_addEvent" mnemonicParsing="false" onAction="#addEvent" prefHeight="50.0" prefWidth="155.0" text="%addEvent" />
                                  </items>

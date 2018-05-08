@@ -15,7 +15,7 @@ public class WindMain extends Stage {
         Stage primaryStage=new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("MVC/view/main.fxml"), multiLang);
         Parent root = loader.load();
-        primaryStage.setScene(new Scene(root, 1000, 600));
+        primaryStage.setScene(new Scene(root, 1200, 600));
         primaryStage.setTitle(multiLang.getString("mainWindow"));
         primaryStage.show();
 
@@ -26,5 +26,6 @@ public class WindMain extends Stage {
         //controller potrebuje mat pristup k main classe
         MainController mainController = loader.getController();
         mainController.setMain(main);
+        mainController.initialization();
     }
 }

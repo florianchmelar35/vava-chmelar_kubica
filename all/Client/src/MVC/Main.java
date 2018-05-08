@@ -16,6 +16,7 @@ import java.util.List;
 public class Main extends Application {
 
     private Stage primaryStage;
+    private Stage secondaryStage;
     private List<Group> groupList;
     private User user;
 
@@ -39,7 +40,6 @@ public class Main extends Application {
     }
 
 
-
     public static void main(String[] args) {
         launch(args);
     }
@@ -50,6 +50,14 @@ public class Main extends Application {
 
     public void setPrimaryStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
+    }
+
+    public Stage getSecondaryStage() {
+        return secondaryStage;
+    }
+
+    public void setSecondaryStage(Stage secondaryStage) {
+        this.secondaryStage = secondaryStage;
     }
 
     public List<Group> getGroupList() {
