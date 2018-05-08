@@ -12,7 +12,7 @@ public interface LoginBeanRemote {
     int checkUser(User user);
     List<Group> getData(int idUser);
     boolean signUpUser(User user);
-    List<Group> refresh(User user, List<Group> list);
-    boolean logout(User user, List<Group> list);
+    List<Group> refresh(User user, List<Group> list, List<Integer> deleted, List<Integer> created);
+    boolean logout(User user, List<Group> list, List<Integer> deleted, List<Integer> created);
 
 }

@@ -7,12 +7,13 @@ import java.sql.Date;
 import java.sql.Timestamp;
 
 public class Event implements Serializable {
-    private final String name;
-    private final String comment;
-    private final Date date;
-    private final String place;
+    private int id;
+    private String name;
+    private String comment;
+    private Timestamp date;
+    private String place;
 
-    public Event(String name, String comment, Date date, String place) {
+    public Event(String name, String comment, Timestamp date, String place) {
         this.name = name;
         this.comment = comment;
         this.date = date;
@@ -27,7 +28,7 @@ public class Event implements Serializable {
         return comment;
     }
 
-    public Date getDate() {
+    public Timestamp getDate() {
         return date;
     }
 

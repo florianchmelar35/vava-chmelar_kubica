@@ -118,7 +118,6 @@ public class LoginBean implements LoginBeanRemote{
         return null;
     }
 
-
     @Override
     public boolean signUpUser(User user) {
         Connection c = null;
@@ -174,12 +173,12 @@ public class LoginBean implements LoginBeanRemote{
     }
 
     @Override
-    public List<Group> refresh(User user, List<Group> list) {
+    public List<Group> refresh(User user, List<Group> list, List<Integer> deleted, List<Integer> created) {
         return null;
     }
 
     @Override
-    public boolean logout(User user, List<Group> list) {
+    public boolean logout(User user, List<Group> list, List<Integer> deleted, List<Integer> created) {
         return false;
     }
 
