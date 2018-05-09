@@ -2,6 +2,7 @@ package MVC.controller.window;
 
 import MVC.Main;
 import MVC.controller.AddEventController;
+import MVC.controller.MainController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -10,7 +11,7 @@ import javafx.stage.Stage;
 import java.util.ResourceBundle;
 
 public class WindAddEvent extends Stage {
-    public WindAddEvent(ResourceBundle multiLang, Main main) throws Exception{
+    public WindAddEvent(ResourceBundle multiLang, Main main, MainController mainController) throws Exception{
         super();
         Stage primaryStage=new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("MVC/view/addEvent.fxml"), multiLang);
@@ -21,11 +22,12 @@ public class WindAddEvent extends Stage {
 
         //prepnutie okien
         //main.getPrimaryStage().close();
-        //main.setPrimaryStage(primaryStage);
+        main.setSecondaryStage(primaryStage);
 
         //controller potrebuje mat pristup k main classe
         AddEventController addEventController = loader.getController();
         addEventController.setMain(main);
+        addEventController.setMainController(mainController);
         addEventController.initialization();
     }
 }

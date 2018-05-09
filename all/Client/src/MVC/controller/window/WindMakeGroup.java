@@ -1,6 +1,7 @@
 package MVC.controller.window;
 
 import MVC.Main;
+import MVC.controller.MainController;
 import MVC.controller.MakeGroupController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,7 +11,7 @@ import javafx.stage.Stage;
 import java.util.ResourceBundle;
 
 public class WindMakeGroup {
-    public WindMakeGroup(ResourceBundle multiLang, Main main) throws Exception{
+    public WindMakeGroup(ResourceBundle multiLang, Main main, MainController mainController) throws Exception{
         super();
         Stage primaryStage=new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("MVC/view/makeGroup.fxml"), multiLang);
@@ -21,10 +22,11 @@ public class WindMakeGroup {
 
         //prepnutie okien
         //main.getPrimaryStage().close();
-        //main.setPrimaryStage(primaryStage);
+        main.setSecondaryStage(primaryStage);
 
         //controller potrebuje mat pristup k main classe
         MakeGroupController makeGroupController = loader.getController();
         makeGroupController.setMain(main);
+        makeGroupController.setMainController(mainController);
     }
 }

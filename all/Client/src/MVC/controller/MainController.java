@@ -9,6 +9,7 @@ import MVC.controller.window.WindAddGroup;
 import MVC.controller.window.WindLogin;
 import MVC.model.EventProperty;
 import MVC.model.GroupProperty;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import model.Event;
@@ -17,6 +18,7 @@ import model.Group;
 import javax.ejb.Local;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -40,9 +42,9 @@ public class MainController {
     @FXML
     private Button B_logOut;
     @FXML
-    private ChoiceBox<String> Ch_events;
+    private ChoiceBox<GroupProperty> Ch_events;
     @FXML
-    private Button B_filter;
+    private Button B_showAll;
     @FXML
     private Button B_addEvent;
     @FXML
@@ -66,22 +68,24 @@ public class MainController {
         //meno pouzivatela
         L_name.setText(main.getUser().getLogin());
 
+        main.getGroupsAll().clear();
+        main.getGroupsMy().clear();
+        main.getEvents().clear();
+
         //naplnam list eventov, ktory sa bude zobrazovat v tabulke
         //rovnako naplnam aj tabulku group
         for(Group g : main.getGroupList()) {
+
             GroupProperty gp = new GroupProperty(g.getId(),g.getName(),g.getIdUser());
-            main.getGroups().add(gp);
-            
+            main.getGroupsAll().add(gp);
+            if(gp.getIdUser() == main.getUser().getId()) {
+                main.getGroupsMy().add(gp);
+            }
 
             for(Event e : g.getEvents()) {
-               int year = e.getDate().getYear();
-               int month = e.getDate().getMonth();
-               int day = e.getDate().getDay();
-               LocalDate date = LocalDate.of(year,month,day);
-
-               int hours = e.getDate().getHours();
-               int minutes = e.getDate().getHours();
-               LocalTime time = LocalTime.of(hours,minutes);
+               LocalDateTime d = e.getDate().toLocalDateTime();
+               LocalDate date= d.toLocalDate();
+               LocalTime time = d.toLocalTime();
 
                EventProperty ep = new EventProperty(e.getName(), e.getComment(), date, time, e.getPlace());
                main.getEvents().add(ep);
@@ -96,14 +100,37 @@ public class MainController {
         TC_comment.setCellValueFactory(cellData -> cellData.getValue().commentProperty());
 
         T_events.setItems(main.getEvents());
+        Ch_events.setItems(main.getGroupsAll());
+    }
 
+    public void addListener() {
+        Ch_events.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> changeTable(newValue));
+    }
 
+    private void changeTable(GroupProperty groupProperty) {
+        main.getEvents().clear();
+
+        for(Group g : main.getGroupList()) {
+            if(groupProperty.getId() == g.getId()) {
+                for(Event e : g.getEvents()) {
+                    LocalDateTime d = e.getDate().toLocalDateTime();
+                    LocalDate date= d.toLocalDate();
+                    LocalTime time = d.toLocalTime();
+
+                    EventProperty ep = new EventProperty(e.getName(), e.getComment(), date, time, e.getPlace());
+                    main.getEvents().add(ep);
+                }
+            }
+        }
+
+        T_events.setItems(main.getEvents());
     }
 
     @FXML
     private void addEvent() {
         try {
-            new WindAddEvent(multiLang, this.main);
+            new WindAddEvent(multiLang, this.main, this);
         }
         catch (Exception e){
             e.printStackTrace();
@@ -111,9 +138,54 @@ public class MainController {
     }
 
     @FXML
+    private void deleteEvent() {
+        EventProperty ep = T_events.getSelectionModel().selectedItemProperty().getValue();
+        if(ep==null)
+            return;
+
+        for(Group g : main.getGroupList()) {
+            for(Event e : g.getEvents()) {
+                if(e.getName().equals(ep.getName())) {
+                    if(g.getIdUser() != main.getUser().getId()) {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle(multiLang.getString("information"));
+                        alert.setHeaderText(null);
+                        alert.setContentText(multiLang.getString("dontOwn"));
+                        alert.showAndWait();
+                        return;
+                    }
+
+                    g.getEvents().remove(e);
+                    refresh();
+                    break;
+                }
+            }
+        }
+    }
+
+    @FXML
+    private void showAll() {
+        main.getEvents().clear();
+
+        //naplnam list eventov, ktory sa bude zobrazovat v tabulke
+        //rovnako naplnam aj tabulku group
+        for(Group g : main.getGroupList()) {
+            for(Event e : g.getEvents()) {
+                LocalDateTime d = e.getDate().toLocalDateTime();
+                LocalDate date= d.toLocalDate();
+                LocalTime time = d.toLocalTime();
+
+                EventProperty ep = new EventProperty(e.getName(), e.getComment(), date, time, e.getPlace());
+                main.getEvents().add(ep);
+            }
+        }
+        T_events.setItems(main.getEvents());
+    }
+
+    @FXML
     private void addGroup() {
         try {
-            new WindAddGroup(multiLang, this.main);
+            new WindAddGroup(multiLang, this.main, this);
         }
         catch (Exception e){
             e.printStackTrace();
@@ -123,7 +195,7 @@ public class MainController {
     @FXML
     private void makeGroup() {
         try {
-            new WindMakeGroup(multiLang, this.main);
+            new WindMakeGroup(multiLang, this.main, this);
         }
         catch (Exception e){
             e.printStackTrace();
@@ -133,7 +205,7 @@ public class MainController {
     @FXML
     private void listGroup() {
         try {
-            new WindListGroup(multiLang, this.main);
+            new WindListGroup(multiLang, this.main, this);
         }
         catch (Exception e){
             e.printStackTrace();
@@ -147,7 +219,7 @@ public class MainController {
     private void logout() {
         boolean success = false;
         try {
-            success = BeanController.logout(main.getUser(), main.getGroupList(), main.getDeleted(), main.getCreated());
+            success = BeanController.logout(main.getUser(), main.getGroupList(), main.getDeleted());
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -173,16 +245,16 @@ public class MainController {
     //prichadza jeden list, ktory opat rozpracovavam pomocou
     //metody initialization
     @FXML
-    private void refresh() {
+    public void refresh() {
         List<Group> list = null;
         try {
-            list = BeanController.refresh(main.getUser(), main.getGroupList(), main.getDeleted(), main.getCreated());
+            list = BeanController.refresh(main.getUser(), main.getGroupList(), main.getDeleted());
         } catch(Exception e) {
             e.printStackTrace();
         }
 
         main.setGroupList(list);
-        main.setEvents(null);
+        main.getEvents().clear();
 
         this.initialization();
     }

@@ -27,5 +27,6 @@ public class WindMain extends Stage {
         MainController mainController = loader.getController();
         mainController.setMain(main);
         mainController.initialization();
+        mainController.addListener();
     }
 }

@@ -22,11 +22,10 @@ public class Main extends Application {
 
     private User user;
     private List<Group> groupList;
-    private List<Integer> created = new ArrayList<Integer>();
     private List<Integer> deleted = new ArrayList<Integer>();
 
     private ObservableList<EventProperty> events = FXCollections.observableArrayList();
-    private ObservableList<GroupProperty> groups = FXCollections.observableArrayList();
+    private ObservableList<GroupProperty> groupsAll = FXCollections.observableArrayList();
     private ObservableList<GroupProperty> groupsMy = FXCollections.observableArrayList();
 
 
@@ -91,14 +90,6 @@ public class Main extends Application {
         this.events = events;
     }
 
-    public List<Integer> getCreated() {
-        return created;
-    }
-
-    public void setCreated(List<Integer> created) {
-        this.created = created;
-    }
-
     public List<Integer> getDeleted() {
         return deleted;
     }
@@ -107,12 +98,12 @@ public class Main extends Application {
         this.deleted = deleted;
     }
 
-    public ObservableList<GroupProperty> getGroups() {
-        return groups;
+    public ObservableList<GroupProperty> getGroupsAll() {
+        return groupsAll;
     }
 
-    public void setGroups(ObservableList<GroupProperty> groups) {
-        this.groups = groups;
+    public void setGroupsAll(ObservableList<GroupProperty> groupsAll) {
+        this.groupsAll = groupsAll;
     }
 
     public ObservableList<GroupProperty> getGroupsMy() {

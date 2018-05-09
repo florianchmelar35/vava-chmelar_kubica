@@ -58,8 +58,8 @@
                               <ToolBar layoutX="10.0" layoutY="20.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="85.0" prefWidth="792.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <items>
                                     <ChoiceBox fx:id="Ch_events" prefHeight="30.0" prefWidth="250.0" />
-                                    <Button fx:id="B_filter" alignment="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="155.0" text="%filter" />
-                                    <Button fx:id="B_deleteEvent" mnemonicParsing="false" prefHeight="50.0" prefWidth="155.0" text="%deleteEvent" />
+                                    <Button fx:id="B_showAll" alignment="CENTER" mnemonicParsing="false" onAction="#showAll" prefHeight="50.0" prefWidth="155.0" text="%showAll" />
+                                    <Button fx:id="B_deleteEvent" mnemonicParsing="false" onAction="#deleteEvent" prefHeight="50.0" prefWidth="155.0" text="%deleteEvent" />
                                     <Button fx:id="B_addEvent" mnemonicParsing="false" onAction="#addEvent" prefHeight="50.0" prefWidth="155.0" text="%addEvent" />
                                  </items>
                               </ToolBar>

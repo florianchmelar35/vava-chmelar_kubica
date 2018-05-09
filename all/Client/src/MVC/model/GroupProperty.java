@@ -52,6 +52,6 @@ public class GroupProperty {
 
     @Override
     public String toString() {
-        return name.toString();
+        return name.get();
     }
 }

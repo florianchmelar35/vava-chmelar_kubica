@@ -30,16 +30,28 @@ public class BeanController {
         return(statelessLoginBean.signUpUser(user));
     }
 
-    public static boolean logout(User user, List<Group> list, List<Integer> deleted, List<Integer> created) throws Exception {
+    public static boolean logout(User user, List<Group> list, List<Integer> deleted) throws Exception {
         final LoginBeanRemote statelessLoginBean = lookupRemoteLoginBean();
 
-        return(statelessLoginBean.logout(user, list, deleted, created));
+        return(statelessLoginBean.logout(user, list, deleted));
     }
 
-    public static List<Group> refresh(User user, List<Group> list, List<Integer> deleted, List<Integer> created) throws Exception {
+    public static List<Group> refresh(User user, List<Group> list, List<Integer> deleted) throws Exception {
         final LoginBeanRemote statelessLoginBean = lookupRemoteLoginBean();
 
-        return(statelessLoginBean.refresh(user, list, deleted, created));
+        return(statelessLoginBean.refresh(user, list, deleted));
+    }
+
+    public static Group addGroup (int idUser, int idGroup) throws Exception {
+        final LoginBeanRemote statelessLoginBean = lookupRemoteLoginBean();
+
+        return(statelessLoginBean.addGroup(idUser, idGroup));
+    }
+
+    public static boolean leaveGroup (int idUser, int idGroup) throws Exception {
+        final LoginBeanRemote statelessLoginBean = lookupRemoteLoginBean();
+
+        return(statelessLoginBean.leaveGroup(idUser, idGroup));
     }
 
     private static LoginBeanRemote lookupRemoteLoginBean() throws NamingException {

@@ -2,6 +2,7 @@ package MVC.controller.window;
 
 import MVC.Main;
 import MVC.controller.ListGroupController;
+import MVC.controller.MainController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -10,7 +11,7 @@ import javafx.stage.Stage;
 import java.util.ResourceBundle;
 
 public class WindListGroup {
-    public WindListGroup(ResourceBundle multiLang, Main main) throws Exception{
+    public WindListGroup(ResourceBundle multiLang, Main main, MainController mainController) throws Exception{
         super();
         Stage primaryStage=new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("MVC/view/listGroup.fxml"), multiLang);
@@ -26,5 +27,7 @@ public class WindListGroup {
         //controller potrebuje mat pristup k main classe
         ListGroupController listGroupController = loader.getController();
         listGroupController.setMain(main);
+        listGroupController.setMainController(mainController);
+        listGroupController.initialization();
     }
 }
