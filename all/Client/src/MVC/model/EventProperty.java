@@ -4,7 +4,7 @@ import javafx.beans.property.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-
+/**trieda ktora nam pomaha mapovat Eventy do tabulky*/
 public class EventProperty {
     private IntegerProperty id;
     private final StringProperty name;

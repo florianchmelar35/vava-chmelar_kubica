@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 
 import java.util.ResourceBundle;
 
+/**trieda spusta nove okno makeGroup a nastavujeme mu potrebne parametre*/
 public class WindMakeGroup {
     public WindMakeGroup(ResourceBundle multiLang, Main main, MainController mainController) throws Exception{
         super();

@@ -2,7 +2,7 @@ package MVC.model;
 
 import javafx.beans.property.*;
 import javafx.collections.ObservableList;
-
+/**trieda ktora nam pomaha mapovat Groupy do tabulky*/
 public class GroupProperty {
     private final IntegerProperty id;
     private final StringProperty name;

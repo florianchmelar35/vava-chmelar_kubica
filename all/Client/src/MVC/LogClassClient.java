@@ -14,7 +14,7 @@ public class LogClassClient {
         logr.addHandler(ch);
 
         try{
-            FileHandler fh = new FileHandler("C:\\DATA\\School\\4. semester\\VAVA\\project_OrganizeIT\\Client\\src\\MVC\\ClientLogger.log", true);
+            FileHandler fh = new FileHandler("C:\\Users\\Trolo\\Desktop\\Vjeci\\Škola\\4.semester\\VAVA\\project_OrganizeIT\\Client\\src\\MVC\\ClientLogger.log", true);
             fh.setFormatter(new SimpleFormatter());
             fh.setLevel(Level.FINE);
             logr.addHandler(fh);

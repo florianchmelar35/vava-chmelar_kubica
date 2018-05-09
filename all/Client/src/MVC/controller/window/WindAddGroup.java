@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 
 import java.util.ResourceBundle;
 
+/**trieda spusta nove okno addGroup a nastavujeme mu potrebne parametre*/
 public class WindAddGroup {
     public WindAddGroup(ResourceBundle multiLang, Main main, MainController mainController) throws Exception{
         super();

@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 
 import java.util.ResourceBundle;
 
+/**trieda spusta nove okno login a nastavujeme mu potrebne parametre*/
 public class WindLogin extends Stage {
     public WindLogin(ResourceBundle multiLang, Main main) throws Exception{
         super();

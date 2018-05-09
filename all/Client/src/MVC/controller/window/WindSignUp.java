@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 
 import java.util.ResourceBundle;
 
+/**trieda spusta nove okno signUp a nastavujeme mu potrebne parametre*/
 public class WindSignUp {
     public WindSignUp(ResourceBundle multiLang, Main main) throws Exception {
         super();

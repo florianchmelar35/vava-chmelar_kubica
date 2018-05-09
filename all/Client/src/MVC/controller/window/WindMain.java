@@ -8,7 +8,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.util.ResourceBundle;
 
-
+/**trieda spusta nove okno main a nastavujeme mu potrebne parametre*/
 public class WindMain extends Stage {
     public WindMain(ResourceBundle multiLang, Main main) throws Exception{
         super();

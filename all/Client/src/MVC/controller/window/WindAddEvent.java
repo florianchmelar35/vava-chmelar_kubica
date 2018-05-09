@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 
 import java.util.ResourceBundle;
 
+/**trieda spusta nove okno addEvent a nastavujeme mu potrebne parametre*/
 public class WindAddEvent extends Stage {
     public WindAddEvent(ResourceBundle multiLang, Main main, MainController mainController) throws Exception{
         super();

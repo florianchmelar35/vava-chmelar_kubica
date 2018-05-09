@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 
 import java.util.ResourceBundle;
 
+/**trieda spusta nove okno listGroup a nastavujeme mu potrebne parametre*/
 public class WindListGroup {
     public WindListGroup(ResourceBundle multiLang, Main main, MainController mainController) throws Exception{
         super();
