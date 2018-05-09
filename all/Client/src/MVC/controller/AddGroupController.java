@@ -9,6 +9,7 @@ import javafx.scene.control.TextField;
 import model.Group;
 
 import java.util.ResourceBundle;
+import java.util.logging.Level;
 
 public class AddGroupController {
     private Main main;
@@ -26,6 +27,7 @@ public class AddGroupController {
         try {
             id = Integer.parseInt(T_id.getText());
         } catch(Exception e) {
+            main.getLog().log(Level.FINE, "uncorrect fill");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle(multiLang.getString("information"));
             alert.setHeaderText(null);
@@ -38,7 +40,7 @@ public class AddGroupController {
         try {
             g = BeanController.addGroup(main.getUser().getId(), id);
         } catch(Exception e) {
-            e.printStackTrace();
+            main.getLog().log(Level.SEVERE, "addGroup");
         }
 
         if(g == null) {

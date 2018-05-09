@@ -11,6 +11,7 @@ import model.Group;
 
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
 
 public class MakeGroupController {
     ResourceBundle multiLang = ResourceBundle.getBundle("multiLang");
@@ -25,6 +26,7 @@ public class MakeGroupController {
 
     @FXML
     private void create() {
+        main.getLog().log(Level.FINEST, "create");
         String name = T_name.getText();
         int idUser = main.getUser().getId();
 

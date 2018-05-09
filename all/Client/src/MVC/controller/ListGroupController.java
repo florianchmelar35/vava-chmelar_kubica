@@ -11,6 +11,7 @@ import javafx.scene.control.TableView;
 import model.Group;
 
 import java.util.ResourceBundle;
+import java.util.logging.Level;
 
 public class ListGroupController {
     private Main main;
@@ -55,6 +56,7 @@ public class ListGroupController {
         try {
             success = BeanController.leaveGroup(main.getUser().getId(), gp.getId());
         } catch(Exception e) {
+            main.getLog().log(Level.SEVERE, "leave Group");
             e.printStackTrace();
         }
 

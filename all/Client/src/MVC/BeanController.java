@@ -1,6 +1,5 @@
 package MVC;
 
-import model.Event;
 import model.Group;
 import model.User;
 import service.LoginBeanRemote;

@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import model.User;
 
 import java.util.ResourceBundle;
+import java.util.logging.Level;
 
 
 public class SignUpController {
@@ -37,6 +38,7 @@ public class SignUpController {
             alert.setHeaderText(null);
             alert.setContentText(multiLang.getString("wrongLogin"));
             alert.showAndWait();
+            main.getLog().log(Level.FINER, "uncorrect fill");
             return;
         }
 
@@ -46,11 +48,12 @@ public class SignUpController {
             alert.setHeaderText(null);
             alert.setContentText(multiLang.getString("passwordSame"));
             alert.showAndWait();
+            main.getLog().log(Level.FINER, "not same passw");
             return;
         }
 
         String name = login.getText();
-        String password = login.getText();
+        String password = password2.getText();
         User user = new User(name,password);
 
         //pokusime sa usera zaregistrovat
@@ -58,7 +61,7 @@ public class SignUpController {
         try {
             success = BeanController.signUpUser(user);
         } catch(Exception e) {
-            e.printStackTrace();
+            main.getLog().log(Level.SEVERE, "signUp");
         }
 
         if(!success) {

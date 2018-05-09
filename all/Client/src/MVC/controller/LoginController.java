@@ -15,6 +15,7 @@ import model.User;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
 
 public class LoginController {
     String langS = "EN";
@@ -59,9 +60,12 @@ public class LoginController {
     @FXML
     private void signIn() {
 
+
         //ak su textove polia prazdne, nedeje sa nic
-        if(!checkEmpty())
+        if(!checkEmpty()){
+            main.getLog().log(Level.CONFIG, "empty");
             return;
+        }
 
         String login = T_user.getText();
         String password = T_pass.getText();
@@ -72,7 +76,8 @@ public class LoginController {
         try {
             idUser = BeanController.checkUser(user);
         } catch(Exception e) {
-            e.printStackTrace();
+            main.getLog().log(Level.INFO, "checkUser",e);
+//            e.printStackTrace();
             return;
         }
         //ak user uz existuje, prichadza hodnota -1
@@ -82,6 +87,7 @@ public class LoginController {
             alert.setHeaderText(null);
             alert.setContentText(multiLang.getString("badInformation"));
             alert.showAndWait();
+            main.getLog().log(Level.FINER, "userExists");
             return;
         }
 
@@ -94,7 +100,7 @@ public class LoginController {
         try {
             groupList = BeanController.getData(user.getId());
         } catch(Exception e) {
-            e.printStackTrace();
+            main.getLog().log(Level.SEVERE, "",e);
         }
 
         main.setGroupList(groupList);
@@ -102,7 +108,7 @@ public class LoginController {
         try {
             new WindMain(multiLang, this.main);
         } catch (Exception e) {
-            e.printStackTrace();
+            main.getLog().log(Level.INFO, "",e);
         }
     }
 

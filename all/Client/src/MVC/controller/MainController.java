@@ -22,6 +22,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
 
 public class MainController {
     ResourceBundle multiLang = ResourceBundle.getBundle("multiLang");
@@ -65,6 +66,7 @@ public class MainController {
     //rozpracovanie listu, ktory mame k dispozicii z classy main
     //dalej mapuje potrebne veci do tabulky
     public void initialization() {
+        main.getLog().log(Level.FINEST, "");
         //meno pouzivatela
         L_name.setText(main.getUser().getLogin());
 
@@ -133,15 +135,17 @@ public class MainController {
             new WindAddEvent(multiLang, this.main, this);
         }
         catch (Exception e){
-            e.printStackTrace();
+            main.getLog().log(Level.SEVERE, "window AddEvent",e);
         }
     }
 
     @FXML
     private void deleteEvent() {
         EventProperty ep = T_events.getSelectionModel().selectedItemProperty().getValue();
-        if(ep==null)
+        if(ep==null){
+            main.getLog().log(Level.INFO, "nothing selected");
             return;
+        }
 
         for(Group g : main.getGroupList()) {
             for(Event e : g.getEvents()) {
@@ -198,7 +202,7 @@ public class MainController {
             new WindMakeGroup(multiLang, this.main, this);
         }
         catch (Exception e){
-            e.printStackTrace();
+            main.getLog().log(Level.SEVERE, "window makeGroup",e);
         }
     }
 
@@ -208,7 +212,7 @@ public class MainController {
             new WindListGroup(multiLang, this.main, this);
         }
         catch (Exception e){
-            e.printStackTrace();
+            main.getLog().log(Level.SEVERE, "window listGroup",e);
         }
     }
 
@@ -221,7 +225,7 @@ public class MainController {
         try {
             success = BeanController.logout(main.getUser(), main.getGroupList(), main.getDeleted());
         } catch(Exception e) {
-            e.printStackTrace();
+            main.getLog().log(Level.SEVERE, "logout",e);
         }
 
         if(!success) {
@@ -237,7 +241,7 @@ public class MainController {
             new WindLogin(multiLang, this.main);
         }
         catch (Exception e){
-            e.printStackTrace();
+            main.getLog().log(Level.SEVERE, "windLogin",e);
         }
     }
 
@@ -250,7 +254,8 @@ public class MainController {
         try {
             list = BeanController.refresh(main.getUser(), main.getGroupList(), main.getDeleted());
         } catch(Exception e) {
-            e.printStackTrace();
+            main.getLog().log(Level.SEVERE, "refesh",e);
+//            e.printStackTrace();
         }
 
         main.setGroupList(list);

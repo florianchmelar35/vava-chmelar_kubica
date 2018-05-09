@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
 
 
 public class AddEventController {
@@ -61,6 +62,7 @@ public class AddEventController {
             if (h>23 || h<0 || m>59 || m<0)
                 throw new Exception();
         } catch(Exception e) {
+            main.getLog().log(Level.FINE, "uncorrect fill");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle(multiLang.getString("information"));
             alert.setHeaderText(null);
@@ -86,8 +88,10 @@ public class AddEventController {
             }
         }
 
-        if(!test)
+        if(!test){
+            main.getLog().log(Level.FINER, "user is master");
             return;
+        }
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(multiLang.getString("information"));

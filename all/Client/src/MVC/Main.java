@@ -11,9 +11,12 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import model.Group;
 import model.User;
+import service.LogClass;
+import service.LoginBean;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class Main extends Application {
 
@@ -28,9 +31,12 @@ public class Main extends Application {
     private ObservableList<GroupProperty> groupsAll = FXCollections.observableArrayList();
     private ObservableList<GroupProperty> groupsMy = FXCollections.observableArrayList();
 
+    private Logger log;
+
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+        log = LogClassClient.getLog();
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Login");
 
@@ -47,6 +53,7 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
+
         launch(args);
     }
 
@@ -112,5 +119,9 @@ public class Main extends Application {
 
     public void setGroupsMy(ObservableList<GroupProperty> groupsMy) {
         this.groupsMy = groupsMy;
+    }
+
+    public Logger getLog() {
+        return log;
     }
 }
