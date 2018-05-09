@@ -6,6 +6,10 @@ import javafx.collections.ObservableList;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * trieda reprezentujuca data pre udaj grupy
+ */
+
 public class Group implements Serializable {
     private int id;
     private String name;

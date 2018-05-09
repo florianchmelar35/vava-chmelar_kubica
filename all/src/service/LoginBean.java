@@ -11,16 +11,27 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+/**
+ * Hlavna Stateless beana na kominukovanie medzi serverom a clientom
+ */
 
 @Stateless
 @Remote (LoginBeanRemote.class)
 public class LoginBean implements LoginBeanRemote{
-    public LoginBean() {
-    }
+    Logger log;
 
+    /**
+     * metoda na prihlasenie uzivatela a vratenia jeho id
+     * @param user
+     * @return
+     */
     @Override
     public int checkUser(User user) {
+        log = LogClass.getLog();
+        log.log(Level.FINER, "Login user = " + user.getLogin());
 
         Connection c = null;
         Statement stmt;
@@ -36,22 +47,36 @@ public class LoginBean implements LoginBeanRemote{
 
             c.close();
 
-            if(!rs.next())
+            if(!rs.next()){
+                log.log(Level.CONFIG, "User is not in DB ", user.getLogin());
                 return -1;
-            if (!rs.getString(3).equals(user.getPassword()))
+            }
+            if (!rs.getString(3).equals(user.getPassword())){
+                log.log(Level.CONFIG, "Password incorrect, user", user.getLogin());
                 return -2;
+            }
 
             return rs.getInt(1);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            log.log(Level.SEVERE, "checkUser exception ", e);
+//            e.printStackTrace();
         }
 
         return -3;
     }
 
+
+    /**
+     * metoda pre ziskanie vsetkych dostupnych dat pre uzivatela
+     * @param idUser
+     * @return
+     */
     @Override
     public List<Group> getData(int idUser) {
+        log = LogClass.getLog();
+        log.log(Level.FINER, "get data, idUser: " + idUser);
+
         Connection c = null;
         Statement stmt, stmt2;
         ResultSet rs, rs2;
@@ -78,6 +103,7 @@ public class LoginBean implements LoginBeanRemote{
 
                 g = new Group(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getBoolean(4));
                 events = new ArrayList<>();
+                log.log(Level.FINEST, "get data - group, admin, idGroup: %d ", rs.getInt(1));
 
 
                 querry = String.format("SELECT * FROM organizeit.event e " +
@@ -87,7 +113,6 @@ public class LoginBean implements LoginBeanRemote{
                 while(rs2.next()){
                     e = new Event(rs2.getString(3), rs2.getString(4), rs2.getTimestamp(5), rs2.getString(6));
                     events.add(e);
-                    System.out.println("\tOUT");
                 }
 
                 g.setEvents(events);
@@ -101,6 +126,7 @@ public class LoginBean implements LoginBeanRemote{
             rs = stmt.executeQuery(querry);
 
             while(rs.next()){
+                log.log(Level.FINEST, "get data - group, partOf, idGroup: %d ", rs.getInt(4));
 
 //                    pre grupu vyberie zoznam eventov
                 querry = String.format("SELECT * FROM organizeit.event e " +
@@ -123,14 +149,23 @@ public class LoginBean implements LoginBeanRemote{
         }
 
         catch (Exception e1) {
-            e1.printStackTrace();
+            log.log(Level.SEVERE, "get data, exc " + idUser, e1);
+//            e1.printStackTrace();
         }
 
         return null;
     }
 
+
+    /**
+     * metoda pre zaregistrovanie usera v databaze a vytvoreniu jemu osobnej grupy
+     * @param user
+     * @return
+     */
     @Override
     public boolean signUpUser(User user) {
+        log = LogClass.getLog();
+        log.log(Level.FINER, "get data, idUser: " + user.getId() );
         Connection c = null;
         Statement stmt;
         PreparedStatement pStmt;
@@ -144,8 +179,10 @@ public class LoginBean implements LoginBeanRemote{
             String querry = String.format("SELECT count(*) FROM organizeit.user WHERE name ='%s'", user.getLogin());
             rs = stmt.executeQuery(querry);
             rs.next();
-            if(rs.getInt(1) > 0)
+            if(rs.getInt(1) > 0){
+                log.log(Level.CONFIG, "signUp, user exist = " + user.getLogin() );
                 return false;
+            }
 
 
             String insertPreparedStatement = "INSERT INTO organizeit.user(name, password) VALUES (?, ?)";
@@ -171,39 +208,60 @@ public class LoginBean implements LoginBeanRemote{
             pStmt.execute();
 
             c.commit();
-            c.close();
             return true;
 
         }
         catch (Exception e){
             if (c != null){
                 try {
+                    log.log(Level.INFO, "signUp, roll back, user = " + user.getLogin() );
                     System.err.print("Roll back");
                     c.rollback();
                 } catch (SQLException e1) {
-                    e1.printStackTrace();
+                    log.log(Level.SEVERE, "signUp, rollback SQL, user = " + user.getLogin(), e1);
+//                    e1.printStackTrace();
                 }
             }
-            e.printStackTrace();
+            log.log(Level.SEVERE, "signUp, user = %s " + user.getLogin(), e);
+//            e.printStackTrace();
         }
         finally {
             try {
                 c.setAutoCommit(true);
+                c.close();
             } catch (SQLException e) {
+                log.log(Level.WARNING, "signUp, autocommit to true, user = " + user.getLogin(), e);
                 e.printStackTrace();
             }
         }
         return false;
     }
 
+    /**
+     * metoda pre aktualizovanie dat a ziskanie najnovsich
+     * @param user
+     * @param list
+     * @param deleted
+     * @return
+     */
     @Override
-    public List<Group> refresh(User user, List<Group> list, List<Integer> deleted, List<Integer> created) {
-        logout(user, list, deleted, created);
+    public List<Group> refresh(User user, List<Group> list, List<Integer> deleted) {
+        logout(user, list, deleted);
         return getData(user.getId());
     }
 
+    /**
+     * metoda, kde sa uzivatelove data aktualizuju v databaze
+     * @param user
+     * @param list
+     * @param deleted
+     * @return
+     */
     @Override
-    public boolean logout(User user, List<Group> list, List<Integer> deleted, List<Integer> created) {
+    public boolean logout(User user, List<Group> list, List<Integer> deleted) {
+        log = LogClass.getLog();
+        log.log(Level.FINER, "logOut, idUser: %d " + user.getId() );
+
         Connection c = null;
         PreparedStatement pStmt;
         String insertPreparedStatement;
@@ -224,24 +282,24 @@ public class LoginBean implements LoginBeanRemote{
                 }
 
 //            vytvorit nove grupy
-            if (created != null)
-                for (Integer add : created) {
-                    if(list.get(add).getIdUser() != user.getId())       //ak nieje spravca, nemoze pridat
+            for(Group all : list) {
+                if (all.getId() == -1) {
+                    if (all.getIdUser() != user.getId())       //ak nieje spravca, nemoze pridat
                         continue;
 
                     insertPreparedStatement = "INSERT INTO organizeit.group(name, id_user, personal) VALUES (?, ?, FALSE )";
 
                     pStmt = c.prepareStatement(insertPreparedStatement);
-                    pStmt.setString(1, list.get(add).getName());
+                    pStmt.setString(1, all.getName());
                     pStmt.setInt(2, user.getId());
                     pStmt.execute();
-
                 }
+            }
 
 
 //            upravit existujuce grupy
             for (Group all : list){
-                if(all.getIdUser() != user.getId())       //ak nieje spravca, nemoze pridat
+                if(all.getIdUser() != user.getId() || all.getId() == -1)       //ak nieje spravca, nemoze pridat
                     continue;
 
                 insertPreparedStatement = "DELETE FROM organizeit.event WHERE id_group=?";
@@ -270,19 +328,22 @@ public class LoginBean implements LoginBeanRemote{
         catch (Exception e){
             if (c != null){
                 try {
-                    System.err.print("Rolll back");
+                    log.log(Level.INFO, "logOut, roll back, user = %s " + user.getLogin() );
+                    System.err.print("Roll back");
                     c.rollback();
                 } catch (SQLException e1) {
-                    e1.printStackTrace();
+                    log.log(Level.SEVERE, "logOut, rollback SQL, user = %s " + user.getLogin(), e1);
+//                    e1.printStackTrace();
                 }
             }
-            e.printStackTrace();
+            log.log(Level.SEVERE, "logOut, user = %s " + user.getLogin(), e);
+//            e.printStackTrace();
         }
-
         finally {
-            try{
+            try {
                 c.setAutoCommit(true);
-            } catch (SQLException e){
+            } catch (SQLException e) {
+                log.log(Level.WARNING, "logOut, autocommit to true, user = %s " + user.getLogin(), e);
                 e.printStackTrace();
             }
         }
@@ -290,8 +351,17 @@ public class LoginBean implements LoginBeanRemote{
         return false;
     }
 
+    /**
+     * metoda na pridanie grupy pre pouzivatela, cize ju moze prezerat
+     * @param idUser
+     * @param idGroup
+     * @return
+     */
     @Override
     public Group addGroup(int idUser, int idGroup){
+        log = LogClass.getLog();
+        log.log(Level.FINER, "addGroup, idUser: %d " + idUser);
+
         Connection c = null;
         Statement stmt;
         ResultSet rs;
@@ -306,12 +376,16 @@ public class LoginBean implements LoginBeanRemote{
             rs = stmt.executeQuery(querry);
 
 //            nieje
-            if(!rs.next())
+            if(!rs.next()){
+                log.log(Level.CONFIG, "group doesn't exists, idUser: %d " + idUser);
                 return null;
+            }
 
 //            je sukromna alebo je admin
-            if (rs.getInt(3) == idUser || rs.getBoolean(4))
+            if (rs.getInt(3) == idUser || rs.getBoolean(4)){
+                log.log(Level.CONFIG, "private or admin, idUser: %d " + idUser);
                 return null;
+            }
 
             Group group = new Group(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getBoolean(4));
 
@@ -321,8 +395,10 @@ public class LoginBean implements LoginBeanRemote{
             rs = stmt.executeQuery(querry);
             rs.next();
 
-            if(rs.getInt(1) > 0)
+            if(rs.getInt(1) > 0){
+                log.log(Level.CONFIG, "exist, idUser: %d " + idUser);
                 return null;
+            }
 
 //            vlozenie prepojenia medzi userom a grupou
             querry = String.format("INSERT INTO organizeit.part_of(id_user, id_group) " +
@@ -346,14 +422,23 @@ public class LoginBean implements LoginBeanRemote{
             return group;
 
         } catch (Exception e) {
-            e.printStackTrace();
+            log.log(Level.SEVERE, "", e);
+//            e.printStackTrace();
         }
 
         return null;
     }
 
+    /**
+     * metoda pre zrusenie prehliadania inej grupy nez osobnej
+     * @param idUser
+     * @param idGroup
+     * @return
+     */
     @Override
     public boolean leaveGroup(int idUser, int idGroup) {
+        log = LogClass.getLog();
+        log.log(Level.FINER, "idUser: " + idGroup );
         Connection c = null;
         Statement stmt;
         ResultSet rs;
@@ -367,8 +452,10 @@ public class LoginBean implements LoginBeanRemote{
             String querry = String.format("SELECT * FROM organizeit.part_of g " +
                     "WHERE id_user = '%d' AND id_group = '%d'", idUser, idGroup);
             rs = stmt.executeQuery(querry);
-            if(!rs.next())
+            if(!rs.next()){
+                log.log(Level.CONFIG, "isnt connected, idUser: " + idUser );
                 return false;
+            }
 
 //            vymazanie daneho spojenia
             int id = rs.getInt(1);
@@ -380,6 +467,7 @@ public class LoginBean implements LoginBeanRemote{
 
         }
         catch (Exception e){
+            log.log(Level.SEVERE, "", e);
             e.printStackTrace();
         }
 
@@ -387,6 +475,12 @@ public class LoginBean implements LoginBeanRemote{
         return false;
     }
 
+    /**
+     * metoda pre vytvorenie spojenia s databazou
+     * @param c
+     * @return
+     * @throws Exception
+     */
     private Connection log(Connection c) throws Exception{
         File file = new File("C:\\DATA\\School\\4. semester\\VAVA\\project_OrganizeIT\\src\\DatabaseConnect.txt");
         Scanner sc = new Scanner(file);

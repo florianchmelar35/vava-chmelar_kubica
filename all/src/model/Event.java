@@ -6,6 +6,10 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
 
+/**
+ * trieda reprezentujuca udaje konkretneho eventu
+ */
+
 public class Event implements Serializable {
     private int id;
     private String name;

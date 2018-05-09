@@ -7,6 +7,10 @@ import javafx.beans.property.StringProperty;
 
 import java.io.Serializable;
 
+/**
+ * trieda reprezentujuca data pre udaj usera
+ */
+
 public class User implements Serializable {
     private int id;
     private String login;
